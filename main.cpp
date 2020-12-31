@@ -89,34 +89,34 @@ int main()
     display_chain(answer, cout);
   cout << endl;
 
-  // /* can you evolve APE into MAN in up to 6 steps? */
-  // success = find_chain("APE", "MAN", answer, 6);
-  // cout << (success ? "Found" : "Could not find") << " a chain from 'APE' to 'MAN' with up to 6 steps"<< endl;
+  /* can you evolve APE into MAN in up to 6 steps? */
+  success = find_chain("APE", "MAN", answer, 6);
+  cout << (success ? "Found" : "Could not find") << " a chain from 'APE' to 'MAN' with up to 6 steps"<< endl;
 
-  // if (success)
-  //   display_chain(answer, cout);
-  // cout << endl;
+  if (success)
+    display_chain(answer, cout);
+  cout << endl;
 
-  // /* can you turn BLACK into WHITE in up to 8 steps? */
-  // success = find_chain("BLACK", "WHITE", answer, 8);
-  // cout << (success ? "Found" : "Could not find") << " a chain from 'BLACK' to 'WHITE' with up to 8 steps"<< endl;
-  // if (success)
-  //   display_chain(answer, cout);
-  // cout << endl;
+  /* can you turn BLACK into WHITE in up to 8 steps? */
+  success = find_chain("BLACK", "WHITE", answer, 8);
+  cout << (success ? "Found" : "Could not find") << " a chain from 'BLACK' to 'WHITE' with up to 8 steps"<< endl;
+  if (success)
+    display_chain(answer, cout);
+  cout << endl;
   
-  // /* can you make KETTLE into HOLDER in up to 10 steps? */
-  // success = find_chain("KETTLE", "HOLDER", answer, 10);
-  // cout << (success ? "Found" : "Could not find") << " a chain from 'KETTLE' to 'HOLDER' with up to 10 steps"<< endl;
-  // if (success)
-  //   display_chain(answer, cout);
-  // cout << endl;
+  /* can you make KETTLE into HOLDER in up to 10 steps? */
+  success = find_chain("KETTLE", "HOLDER", answer, 10);
+  cout << (success ? "Found" : "Could not find") << " a chain from 'KETTLE' to 'HOLDER' with up to 10 steps"<< endl;
+  if (success)
+    display_chain(answer, cout);
+  cout << endl;
 
-  // // can you turn the WITCH into a FAIRY in up to 12 steps?
-  // success = find_chain("WITCH", "FAIRY", answer, 12);
-  // cout << (success ? "Found" : "Could not find") << " a chain from 'WITCH' to 'FAIRY' with up to 12 steps"<< endl;
-  // if (success)
-  //   display_chain(answer, cout);
-  // cout << endl;
+  // can you turn the WITCH into a FAIRY in up to 12 steps?
+  success = find_chain("WITCH", "FAIRY", answer, 12);
+  cout << (success ? "Found" : "Could not find") << " a chain from 'WITCH' to 'FAIRY' with up to 12 steps"<< endl;
+  if (success)
+    display_chain(answer, cout);
+  cout << endl;
 
   return 0;
 }

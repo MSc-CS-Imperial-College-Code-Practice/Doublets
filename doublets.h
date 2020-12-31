@@ -13,6 +13,8 @@ bool display_chain(const char* chain[], ostream &out);
 bool valid_chain(const char* chain[]);
 bool find_chain(const char *start_word, const char *target_word, 
    const char* answer_chain[], int max_steps);
+bool doublet_solver(const char* start_word, const char* target_word, 
+   const char* answer_chain[], int max_steps, int words_used);
 
 
 // 2) Auxiliar Functions Prototypes

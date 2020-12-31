@@ -50,7 +50,6 @@ bool valid_step(const char *current_word, const char *next_word) {
 
    // If the words have different lenght, not valid step -> Return false
    if(current_word_length != next_word_length){
-      cout << "Lenght_Error" << endl;
       return false;
    }
       
@@ -58,7 +57,6 @@ bool valid_step(const char *current_word, const char *next_word) {
    // Else if "current_word" or "next_word" are not a valid word in dictionary, 
    // not valid step -> Return false
    else if (!dictionary_search(next_word) || !dictionary_search(current_word)){
-      cout << "Dictionary_Error" << endl;
       return false;
    }
 
@@ -73,7 +71,6 @@ bool valid_step(const char *current_word, const char *next_word) {
          // If there is more than a different letter, not valid step -> Return
          //  false
          if(number_of_different_letters > 1){
-            cout << "Repetition_Error" << endl;
             return false;
          }
    }
@@ -139,7 +136,6 @@ bool valid_chain(const char* chain[]){
 
    // A change must consist of 2 words at least. If not, return false
    if (chain_length < 2){
-      cout << "One_Single_Word_Error" << endl;
       return false;
    }
 
@@ -149,14 +145,12 @@ bool valid_chain(const char* chain[]){
       // A chain cannot have duplicate words. If not, return false
       for (int j = i; j < chain_length; j++){
          if(strcmp(chain[i-1],chain[j]) == 0){
-            cout << "Duplicate_Words_Error" << endl;
             return false;
          }
       }
       // A step between a word and the next word has to be valid. If not,
       // return false
       if(!valid_step(chain[i-1],chain[i])){
-         cout << "Invalid_Step_Error" << endl;
          return false;
       }
    }
@@ -169,83 +163,57 @@ bool valid_chain(const char* chain[]){
 
 bool find_chain(const char* start_word, const char* target_word, 
    const char* answer_chain[], int max_steps){
+   
+   answer_chain[0] = start_word;
+   for(int i=1; i<max_steps;i++)
+      answer_chain[i] = NULL;
+   if(doublet_solver(start_word,target_word, answer_chain, max_steps, 0))
+      return true;
+   
+   return false;
+
+}
+
+bool doublet_solver(const char* start_word, const char* target_word, 
+   const char* answer_chain[], int max_steps, int words_used){
 
    // ****************************************************************
-   // 1) Auxiliar Variables
-   // ****************************************************************
-
-   static bool init_flag = true;
-   static int words_used;
-   static int word_length;
-   if(init_flag){
-      cout << "RESETING..." << endl;
-      words_used = 0;
-      word_length = strlen(start_word);
-      answer_chain[0] = start_word;
-      for(int i = 1; answer_chain[i] == NULL; i++)
-         answer_chain[0] = "";
-      init_flag = false;
-   }
-
-   // ****************************************************************
-   // 2) Recursive Solution
+   // 1) Recursive Solution
    // ****************************************************************
 
    // Base case -> All attemps for forming a doublet chain are used
-   if(words_used > max_steps - 1){
-      cout << "Max Words used..."<< endl;
+   if(words_used>max_steps-1){
       return false;
    }
    
    // Recursive case -> Solve for different combinations of chains through
    // a recursive implementation
-   char *temp_word = new char[word_length];
+   char *temp_word = new char[strlen(start_word)];
    strcpy(temp_word, start_word);
-   cout << "Temp Word and Start Word are: " << temp_word 
-        << " | " << start_word<< endl;  
-   for(int i=0; i < word_length; i++){
+
+   for(int i=0; temp_word[i] != '\0'; i++){
       for(char letter = 'A'; letter <= 'Z'; letter++){
          temp_word[i] = letter;
-         cout << "--------------------------------" << endl;
-         cout << "Words testing..."<< endl;
-         cout << start_word << endl;
-         cout << temp_word << endl;
-         cout << endl;
-
-         cout << "Words in chain before change..."<< endl;
-         display_chain(answer_chain, cout);
-         cout << endl;
-          
          words_used++;
          answer_chain[words_used] = temp_word;
-         
+
          if(strcmp(temp_word,target_word) == 0){
-            cout << "Valid chain found" << endl;
-            init_flag = true;
             return true;
          }
 
-         cout << "Words in chain after change..."<< endl;
-         display_chain(answer_chain, cout);
-         cout << endl;
-
          if(valid_chain(answer_chain)){
-            cout << "Is Valid Chain! Continue..." << endl;
-            if(find_chain(temp_word, target_word, answer_chain, max_steps)){
+            if(doublet_solver(temp_word, target_word, answer_chain, 
+               max_steps,words_used)){
                return true;
             }
          }
-         
-         cout << "Deleting..." << endl;
-         //delete answer_chain[words_used];
          answer_chain[words_used] = NULL;
          words_used--;
-   
       }
       temp_word[i] = start_word[i];
    }
    
-
+   delete[] temp_word;
    // If no combination is found -> Return false
    return false;
 
